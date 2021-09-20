@@ -1,11 +1,13 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import Rotas from './components/Rotas';
 
 class App extends React.Component {
   render() {
     return (
-      <div>
-        <p>Vitao/Patrao</p>
-      </div>
+      <BrowserRouter>
+        <Rotas />
+      </BrowserRouter>
     );
   }
 }
