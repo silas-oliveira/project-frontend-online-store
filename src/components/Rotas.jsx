@@ -10,7 +10,8 @@ class Rotas extends React.Component {
       <div>
         <Switch>
           <Route
-            exact path="/"
+            exact
+            path="/"
             component={ Search }
           />
           <Route
@@ -19,7 +20,8 @@ class Rotas extends React.Component {
             component={ ShoppingCart }
           />
           <Route
-            exact path="/:categoryID"
+            exact
+            path="/:categoryID"
             render={ ({ match }) => <Category match={ match } /> }
           />
         </Switch>
