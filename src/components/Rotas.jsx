@@ -28,7 +28,12 @@ class Rotas extends React.Component {
           <Route
             exact
             path="/product/:itemID"
-            render={ ({ match }) => <ProductDetails match={ match } /> }
+            render={ ({ match, location }) => (
+              <ProductDetails
+                match={ match }
+                location={ location }
+              />
+            ) }
           />
         </Switch>
       </div>

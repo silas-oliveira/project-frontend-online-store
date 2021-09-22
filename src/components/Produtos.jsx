@@ -10,9 +10,13 @@ class Produtos extends React.Component {
       <aside>
         { responseAPI.map((item) => (
           <Link
-            to={ `/product/${item.id}` }
+            to={ {
+              pathname: `/product/${item.id}`,
+              state: { product: { ...item } },
+            } }
             data-testid="product-detail-link"
             key={ item.id }
+
           >
             <section data-testid="product">
               <h3>{ item.title }</h3>
