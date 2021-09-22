@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ProductCard from '../components/ProductCard';
+import Produtos from '../components/Produtos';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class Category extends React.Component {
@@ -21,13 +21,9 @@ class Category extends React.Component {
     const { categoryInfos } = this.state;
     return (
       <div>
-        {categoryInfos.map(
-          ({ title, id, thumbnail }) => (<ProductCard
-            title={ title }
-            key={ id }
-            img={ thumbnail }
-          />),
-        )}
+        <Produtos
+          responseAPI={ categoryInfos }
+        />
       </div>
     );
   }

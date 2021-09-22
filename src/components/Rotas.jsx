@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import Category from '../pages/Category';
 import Search from '../pages/Search';
 import ShoppingCart from '../pages/ShoppingCart';
+import ProductDetails from '../pages/ProductDetails';
 
 class Rotas extends React.Component {
   render() {
@@ -23,6 +24,11 @@ class Rotas extends React.Component {
             exact
             path="/:categoryID"
             render={ ({ match }) => <Category match={ match } /> }
+          />
+          <Route
+            exact
+            path="/product/:itemID"
+            render={ ({ match }) => <ProductDetails match={ match } /> }
           />
         </Switch>
       </div>

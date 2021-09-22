@@ -3,6 +3,7 @@
     "browser": true,
     "es2020": true
   },
+  "root": true,
   "extends": "trybe-frontend",
   "parser": "babel-eslint",
   "parserOptions": {
