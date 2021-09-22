@@ -21,3 +21,20 @@ export async function getProductsFromCategoryAndQuery(categoryID = '', query = '
     return reponse;
   }
 }
+
+// DUAS SOLUÇÕES QUE RESULTAM A MESMA COISA DE DUAS FORMAS DIFERENTES
+// PARA CONSULTAR UM DETERMINADO 'ID' DE UM PRODUTO NA API DO ML,
+// MAS QUE NÃO PASSAM NO TESTE. ENTÃO É NECESSÁRIO IMPLANTAR DIRETAMENTE
+// NO COMPONENTE 'ProductDetails'
+
+// export function getProductItemFromMlApi(sku) {
+//   return fetch(`https://api.mercadolibre.com/items/${sku}`)
+//     .then((response) => response.json())
+//     .then((json) => json);
+// }
+
+// export async function getProductItemFromMlApi(sku) {
+//   const response = await fetch(`https://api.mercadolibre.com/items/${sku}`);
+//   const json = await response.json();
+//   return json;
+// }

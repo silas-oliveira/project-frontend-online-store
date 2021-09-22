@@ -1,17 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+//
 
 class Produtos extends React.Component {
   render() {
     const { responseAPI } = this.props;
     return (
       <aside>
-        { responseAPI.map((items) => (
-          <section data-testid="product" key={ items.id }>
-            <h3>{ items.title }</h3>
-            <img src={ items.thumbnail } alt={ items.title } />
-            <p>{`R$ ${items.price}`}</p>
-          </section>
+        { responseAPI.map((item) => (
+          <Link
+            to={ {
+              pathname: `/product/${item.id}`,
+              state: { product: item },
+            } }
+            data-testid="product-detail-link"
+            key={ item.id }
+
+          >
+            <section data-testid="product">
+              <h3>{ item.title }</h3>
+              <img src={ item.thumbnail } alt={ item.title } />
+              <p>{ `R$ ${item.price}` }</p>
+            </section>
+          </Link>
         ))}
       </aside>
     );
