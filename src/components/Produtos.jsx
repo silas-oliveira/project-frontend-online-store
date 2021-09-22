@@ -9,21 +9,23 @@ class Produtos extends React.Component {
     return (
       <aside>
         { responseAPI.map((item) => (
-          <Link
-            to={ {
-              pathname: `/product/${item.id}`,
-              state: { product: item },
-            } }
-            data-testid="product-detail-link"
-            key={ item.id }
+          <div>
+            <Link
+              to={ {
+                pathname: `/product/${item.id}`,
+                state: { product: item },
+              } }
+              data-testid="product-detail-link"
+              key={ item.id }
 
-          >
-            <section data-testid="product">
-              <h3>{ item.title }</h3>
-              <img src={ item.thumbnail } alt={ item.title } />
-              <p>{ `R$ ${item.price}` }</p>
-            </section>
-          </Link>
+            >
+              <section data-testid="product">
+                <h3>{ item.title }</h3>
+                <img src={ item.thumbnail } alt={ item.title } />
+                <p>{ `R$ ${item.price}` }</p>
+              </section>
+            </Link>
+          </div>
         ))}
       </aside>
     );
