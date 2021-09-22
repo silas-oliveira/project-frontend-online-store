@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-//
+import { addToCart } from '../services/localStorageServices';
 
 class Produtos extends React.Component {
   render() {
@@ -9,15 +9,13 @@ class Produtos extends React.Component {
     return (
       <aside>
         { responseAPI.map((item) => (
-          <div>
+          <div key={ item.id }>
             <Link
               to={ {
                 pathname: `/product/${item.id}`,
                 state: { product: item },
               } }
               data-testid="product-detail-link"
-              key={ item.id }
-
             >
               <section data-testid="product">
                 <h3>{ item.title }</h3>
@@ -25,6 +23,13 @@ class Produtos extends React.Component {
                 <p>{ `R$ ${item.price}` }</p>
               </section>
             </Link>
+            <button
+              type="button"
+              data-testid="product-add-to-cart"
+              onClick={ () => addToCart(item) }
+            >
+              Adicionar ao Carrinho
+            </button>
           </div>
         ))}
       </aside>
