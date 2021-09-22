@@ -3,27 +3,29 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 class ProductDetails extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
+    const { location: { state: { product } } } = this.props;
 
     this.state = {
-      product: { attributes: [] },
+      product,
     };
     // this.getProductItemFromMlApi = this.getProductItemFromMlApi.bind(this);
-    this.updateState = this.updateState.bind(this);
+    // this.updateState = this.updateState.bind(this);
   }
 
-  componentDidMount() {
-    const { location: { state: { product } } } = this.props;
-    // const { match: { params: { itemID } } } = this.props;
-    this.updateState(product);
-  }
+  // componentDidMount() {
+  // const { location: { state: { product } } } = this.props;
+  // // const { match: { params: { itemID } } } = this.props;
+  // this.updateState(product);
+  // }
 
-  updateState(product) {
-    this.setState({
-      product,
-    });
-  }
+  // updateState(product) {
+  //   this.setState({
+  //     product,
+  //   });
+  // }
 
   // getProductItemFromMlApi(sku) {
   //   return fetch(`https://api.mercadolibre.com/items/${sku}`)
@@ -68,7 +70,11 @@ class ProductDetails extends Component {
 }
 
 ProductDetails.propTypes = {
-  match: PropTypes.objectOf(PropTypes.object),
-}.isRequired;
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+    state: PropTypes.objectOf(PropTypes.object).isRequired,
+  }).isRequired,
+  // objectOf(PropTypes.object).isRequired,
+};
 
 export default ProductDetails;
