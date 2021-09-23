@@ -8,6 +8,15 @@ export function addToCart(obj) {
   // console.log(JSON.stringify(updArr));
 }
 
+export function subToCart(obj) {
+  const contentLocalStorage = localStorage.getItem(SHOPPING_CART_KEY);
+  console.log(contentLocalStorage);
+  const myArrOfObj = contentLocalStorage ? JSON.parse(contentLocalStorage) : [];
+  const UpdArr = myArrOfObj
+    .splice(myArrOfObj.indexOf((content) => content.id === obj.id), 1);
+  console.log(UpdArr);
+  localStorage.setItem(SHOPPING_CART_KEY, JSON.stringify(UpdArr));
+}
 // export function subFromCart(obj) {
 //   const contentLocalStorage = localStorage.getItem(SHOPPING_CART_KEY);
 //   const myArrOfObj = JSON.parse(contentLocalStorage);
@@ -24,13 +33,12 @@ export function addToCart(obj) {
 export function sumFromCart(obj) {
   const contentLocalStorage = localStorage.getItem(SHOPPING_CART_KEY);
   const myArrOfObj = JSON.parse(contentLocalStorage);
-  const count = myArrOfObj.reduce((acc, curObj) => {
+  return myArrOfObj.reduce((acc, curObj) => {
     if (curObj.id === obj.id) {
       acc += 1;
     }
     return acc;
   }, 0);
-  return count;
 }
 
 export function getFromCart() {
