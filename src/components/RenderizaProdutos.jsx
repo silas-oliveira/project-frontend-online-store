@@ -8,7 +8,9 @@ class RenderizaProdutos extends React.Component {
     return (
       <aside>
         { produtos.map((item) => (
-          <div key={ item.id }>
+          <div
+            key={ item.id }
+          >
             <Link
               to={ {
                 pathname: `/product/${item.id}`,

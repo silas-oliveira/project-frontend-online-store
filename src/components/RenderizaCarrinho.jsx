@@ -10,7 +10,6 @@ class RenderizaCarrinho extends Component {
 
   render() {
     const { quantidade } = this.props;
-    console.log(`Teste de Qnt: ${quantidade}`);
     return (
       <div>
         <Link

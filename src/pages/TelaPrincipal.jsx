@@ -13,39 +13,48 @@ class TelaPrincipal extends React.Component {
   constructor(props) {
     super(props);
 
-    const carrinho = getFromCart();
-
     this.state = {
       categorias: [],
+      categoria: '',
       pesquisa: '',
       fezPesquisa: false,
       produtos: [],
       achouProdutos: false,
-      quantidade: (carrinho.lenght ? carrinho.lenght : 0),
+      quantidade: 0,
+      // carrinho: [],
     };
     this.search = this.search.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleAddToCart = this.handleAddToCart.bind(this);
-    this.handleSearchCategory = this.handleSearchCategory.bind(this);
   }
 
   componentDidMount() {
+    const carrinho = getFromCart();
     getCategories().then((result) => {
       this.setState({
         categorias: result,
+        // carrinho,
+        quantidade: (carrinho.length ? carrinho.length : 0),
       });
     });
   }
 
-  handleSearchCategory(event) {
-    const { id } = event.target;
-    getProductsFromCategoryAndQuery(id, '').then((response) => this.search(response));
-  }
-
-  handleSearch(pesquisa) {
-    if (pesquisa) {
-      getProductsFromCategoryAndQuery('', pesquisa)
+  handleSearch(event) {
+    // SOURCE FROM: https://stackoverflow.com/questions/31272207/to-call-onchange-event-after-pressing-enter-key
+    // APPLIED DOWN
+    if (event.key === undefined) {
+      this.setState({
+        categoria: event.target.id,
+      });
+    }
+    const { categoria } = this.state;
+    const cat = (event.key !== 'Enter') ? event.target.id : categoria;
+    const pesquisa = (event.key === 'Enter' || event.target.type === 'button')
+      ? event.target.value : '';
+    // console.log(`categoria: ${cat} / pesquisa: ${pesquisa}`);
+    if (cat || pesquisa) {
+      getProductsFromCategoryAndQuery(cat, pesquisa)
         .then((response) => this.search(response));
     }
   }
@@ -59,24 +68,18 @@ class TelaPrincipal extends React.Component {
   handleAddToCart(event) {
     const { produtos } = this.state;
     const itemId = event.target.name;
-    console.log(itemId);
     const produto = produtos.find((objeto) => objeto.id === itemId);
-    console.log(produto);
     addToCart(produto);
     const carrinho = getFromCart();
-    console.log(carrinho);
     const quantidade = carrinho.length;
-    console.log(quantidade);
-    this.setState = {
+    this.setState({
       quantidade,
-      carrinho,
-    };
+      // carrinho,
+    });
   }
 
   search(response) {
-    // console.log(response);
     const achouProdutos = response.results.length > 0;
-    // console.log(achouProdutos);
     this.setState({
       produtos: response.results,
       fezPesquisa: true,
@@ -95,15 +98,14 @@ class TelaPrincipal extends React.Component {
     } = this.state;
     return (
       <main>
-        {console.log(`Teste Qtn 2: ${quantidade}`)}
         <div className="renderiza-categorias">
           <RenderizaCategorias
             categorias={ categorias }
-            handleSearchCategory={ this.handleSearchCategory }
+            handleSearch={ this.handleSearch }
           />
         </div>
         <div className="direita">
-          <div>
+          <div className="linha-direita">
             <div className="cabecalho">
               <RenderizaCabecalho
                 pesquisa={ pesquisa }
@@ -116,7 +118,7 @@ class TelaPrincipal extends React.Component {
               <RenderizaCarrinho quantidade={ quantidade } />
             </div>
           </div>
-          <div>
+          <div className="linha-direita">
             {/* se Produtos vem de Categorias passa categorias
                 se Produtos vem de busca pelo input para por input */}
             { fezPesquisa ? null : <RenderizaNenhumaPesquisa /> }
@@ -127,8 +129,8 @@ class TelaPrincipal extends React.Component {
                   handleAddToCart={ this.handleAddToCart }
                 />
               )
-              : <RenderizaNaoEncontrado /> }
-
+              : null }
+            { !achouProdutos && fezPesquisa ? <RenderizaNaoEncontrado /> : null }
           </div>
         </div>
       </main>

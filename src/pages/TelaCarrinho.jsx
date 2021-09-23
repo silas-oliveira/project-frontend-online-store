@@ -32,12 +32,12 @@ class TelaCarrinho extends React.Component {
       }
       return formatedArray;
     }, []);
-    console.log(result);
+    // console.log(result);
     return (
       <div>
         {
           contentCart.map(
-            (content) => (<p key={ content.id }>{ content.title }</p>),
+            (content) => (<p data-testid="shopping-cart-product-name" key={ content.id }>{ content.title }</p>),
           )
         }
       </div>
@@ -49,7 +49,7 @@ class TelaCarrinho extends React.Component {
 
     return (
       <section>
-        {contentCart === [] ? <EmptyCart /> : this.renderContentCart()}
+        {contentCart.length === 0 ? <EmptyCart /> : this.renderContentCart()}
       </section>
     );
   }

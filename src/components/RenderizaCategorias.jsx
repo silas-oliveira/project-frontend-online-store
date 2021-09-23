@@ -3,22 +3,24 @@ import PropTypes from 'prop-types';
 
 class RenderizaCategorias extends React.Component {
   render() {
-    const { categorias, handleSearchCategory } = this.props;
-    const opcaoTodas = {
-      id: 'todas',
-      name: 'Todas as categorias',
-    };
-    const catgoriasAlterado = [opcaoTodas, ...categorias];
+    const { categorias, handleSearch } = this.props;
+    // const opcaoTodas = {
+    //   id: '',
+    //   name: 'Todas as categorias',
+    // };
+    // const catgoriasAlterado = [opcaoTodas, ...categorias];
+    const catgoriasAlterado = [...categorias];
     return (
       <aside>
         { catgoriasAlterado.map((category) => (
           <div key={ category.id }>
             <input
+              data-testid="category"
               type="radio"
               id={ category.id }
               name="categorias"
               value={ category.id }
-              onClick={ handleSearchCategory }
+              onClick={ handleSearch }
             />
             <label htmlFor={ category.id }>{category.name}</label>
           </div>
@@ -30,7 +32,7 @@ class RenderizaCategorias extends React.Component {
 
 RenderizaCategorias.propTypes = {
   categorias: PropTypes.arrayOf(PropTypes.object).isRequired,
-  handleSearchCategory: PropTypes.func.isRequired,
+  handleSearch: PropTypes.func.isRequired,
 };
 
 export default RenderizaCategorias;
