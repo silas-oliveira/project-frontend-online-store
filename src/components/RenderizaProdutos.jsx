@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { addToCart } from '../services/localStorageServices';
 
-class Produtos extends React.Component {
+class RenderizaProdutos extends React.Component {
   render() {
-    const { responseAPI } = this.props;
+    const { produtos } = this.props;
     return (
       <aside>
-        { responseAPI.map((item) => (
+        { produtos.map((item) => (
           <div key={ item.id }>
             <Link
               to={ {
@@ -37,7 +37,7 @@ class Produtos extends React.Component {
   }
 }
 
-Produtos.propTypes = {
-  responseAPI: PropTypes.arrayOf(PropTypes.object).isRequired,
+RenderizaProdutos.propTypes = {
+  produtos: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
-export default Produtos;
+export default RenderizaProdutos;
