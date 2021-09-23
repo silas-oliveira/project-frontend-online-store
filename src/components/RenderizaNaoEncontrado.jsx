@@ -1,17 +1,17 @@
 import React from 'react';
 
-class ShoppingCart extends React.Component {
+class RenderizaNaoEncontrado extends React.Component {
   render() {
     return (
       <div>
         <h2
           data-testid="shopping-cart-empty-message"
         >
-          Seu carrinho está vazio
+          Nenhum produto foi encontrado
         </h2>
       </div>
     );
   }
 }
 
-export default ShoppingCart;
+export default RenderizaNaoEncontrado;

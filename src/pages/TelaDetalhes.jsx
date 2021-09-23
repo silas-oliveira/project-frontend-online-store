@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-class ProductDetails extends Component {
+class TelaDetalhes extends Component {
   constructor(props) {
     super(props);
 
@@ -69,7 +69,7 @@ class ProductDetails extends Component {
   }
 }
 
-ProductDetails.propTypes = {
+TelaDetalhes.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
     state: PropTypes.objectOf(PropTypes.object).isRequired,
@@ -77,4 +77,4 @@ ProductDetails.propTypes = {
   // objectOf(PropTypes.object).isRequired,
 };
 
-export default ProductDetails;
+export default TelaDetalhes;
