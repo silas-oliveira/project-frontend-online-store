@@ -23,7 +23,7 @@ class TelaPrincipal extends React.Component {
       achouProdutos: false,
       quantidade: (carrinho.lenght ? carrinho.lenght : 0),
     };
-
+    this.search = this.search.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleAddToCart = this.handleAddToCart.bind(this);
@@ -40,30 +40,13 @@ class TelaPrincipal extends React.Component {
 
   handleSearchCategory(event) {
     const { id } = event.target;
-    getProductsFromCategoryAndQuery(id, '').then((response) => {
-      // console.log(response);
-      const achouProdutos = response.results.length > 0;
-      // console.log(achouProdutos);
-      this.setState({
-        produtos: response.results,
-        fezPesquisa: true,
-        achouProdutos,
-      });
-    });
+    getProductsFromCategoryAndQuery(id, '').then((response) => this.search(response));
   }
 
   handleSearch(pesquisa) {
     if (pesquisa) {
-      getProductsFromCategoryAndQuery('', pesquisa).then((response) => {
-        // console.log(response);
-        const achouProdutos = response.results.length > 0;
-        // console.log(achouProdutos);
-        this.setState({
-          produtos: response.results,
-          fezPesquisa: true,
-          achouProdutos,
-        });
-      });
+      getProductsFromCategoryAndQuery('', pesquisa)
+        .then((response) => this.search(response));
     }
   }
 
@@ -90,6 +73,17 @@ class TelaPrincipal extends React.Component {
     };
   }
 
+  search(response) {
+    // console.log(response);
+    const achouProdutos = response.results.length > 0;
+    // console.log(achouProdutos);
+    this.setState({
+      produtos: response.results,
+      fezPesquisa: true,
+      achouProdutos,
+    });
+  }
+
   render() {
     const {
       categorias,
@@ -97,9 +91,11 @@ class TelaPrincipal extends React.Component {
       produtos,
       achouProdutos,
       fezPesquisa,
-      quantidade } = this.state;
+      quantidade,
+    } = this.state;
     return (
       <main>
+        {console.log(`Teste Qtn 2: ${quantidade}`)}
         <div className="renderiza-categorias">
           <RenderizaCategorias
             categorias={ categorias }
@@ -125,10 +121,12 @@ class TelaPrincipal extends React.Component {
                 se Produtos vem de busca pelo input para por input */}
             { fezPesquisa ? null : <RenderizaNenhumaPesquisa /> }
             { achouProdutos && fezPesquisa
-              ? <RenderizaProdutos
+              ? (
+                <RenderizaProdutos
                   produtos={ produtos }
                   handleAddToCart={ this.handleAddToCart }
-              />
+                />
+              )
               : <RenderizaNaoEncontrado /> }
 
           </div>
