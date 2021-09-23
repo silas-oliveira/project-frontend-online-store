@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class RenderizaCabecalho extends Component {
   render() {
@@ -36,5 +37,11 @@ class RenderizaCabecalho extends Component {
     );
   }
 }
+
+RenderizaCabecalho.propTypes = {
+  pesquisa: PropTypes.string,
+  handleSearch: PropTypes.func,
+  handleChange: PropTypes.func,
+}.isRequired;
 
 export default RenderizaCabecalho;

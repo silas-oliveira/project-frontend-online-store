@@ -1,13 +1,14 @@
 import React from 'react';
 import EmptyCart from '../components/EmptyCart';
 import { getFromCart } from '../services/localStorageServices';
+import NotEmptyCart from '../components/NotEmptyCart';
 
 class TelaCarrinho extends React.Component {
   constructor() {
     super();
     this.state = { contentCart: [] };
     this.saveState = this.saveState.bind(this);
-    this.renderContentCart = this.renderContentCart.bind(this);
+    this.formatedContentCart = this.formatedContentCart.bind(this);
   }
 
   componentDidMount() {
@@ -19,10 +20,10 @@ class TelaCarrinho extends React.Component {
     this.setState({ contentCart });
   }
 
-  renderContentCart() {
+  formatedContentCart() {
     const { contentCart } = this.state;
 
-    const result = contentCart.reduce((formatedArray, current) => {
+    return contentCart.reduce((formatedArray, current) => {
       const maybeIndex = formatedArray
         .findIndex(({ content }) => content.id === current.id);
       if (maybeIndex >= 0) {
@@ -32,16 +33,6 @@ class TelaCarrinho extends React.Component {
       }
       return formatedArray;
     }, []);
-    // console.log(result);
-    return (
-      <div>
-        {
-          contentCart.map(
-            (content) => (<p data-testid="shopping-cart-product-name" key={ content.id }>{ content.title }</p>),
-          )
-        }
-      </div>
-    );
   }
 
   render() {
@@ -49,7 +40,10 @@ class TelaCarrinho extends React.Component {
 
     return (
       <section>
-        {contentCart.length === 0 ? <EmptyCart /> : this.renderContentCart()}
+        {
+          (contentCart.length === 0)
+            ? <EmptyCart /> : <NotEmptyCart cart={ this.formatedContentCart() } />
+        }
       </section>
     );
   }
