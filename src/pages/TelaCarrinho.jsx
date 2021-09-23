@@ -2,7 +2,7 @@ import React from 'react';
 import EmptyCart from '../components/EmptyCart';
 import { getFromCart } from '../services/localStorageServices';
 
-class ShoppingCart extends React.Component {
+class TelaCarrinho extends React.Component {
   constructor() {
     super();
     this.state = { contentCart: [] };
@@ -55,4 +55,4 @@ class ShoppingCart extends React.Component {
   }
 }
 
-export default ShoppingCart;
+export default TelaCarrinho;

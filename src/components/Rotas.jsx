@@ -1,9 +1,11 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Category from '../pages/Category';
-import Search from '../pages/Search';
-import ShoppingCart from '../pages/ShoppingCart';
-import ProductDetails from '../pages/ProductDetails';
+// import Category from '../pages/Category';
+// import Search from '../pages/Search';
+// import ShoppingCart from '../pages/ShoppingCart';
+import TelaDetalhes from '../pages/TelaDetalhes';
+import TelaPrincipal from '../pages/TelaPrincipal';
+import TelaCarrinho from '../pages/TelaCarrinho';
 
 class Rotas extends React.Component {
   render() {
@@ -13,23 +15,18 @@ class Rotas extends React.Component {
           <Route
             exact
             path="/"
-            component={ Search }
+            component={ TelaPrincipal }
           />
           <Route
-            data-testid="shopping-cart-empty-message"
+            // data-testid="shopping-cart-empty-message"
             path="/shopping-cart"
-            component={ ShoppingCart }
-          />
-          <Route
-            exact
-            path="/:categoryID"
-            render={ ({ match }) => <Category match={ match } /> }
+            component={ TelaCarrinho }
           />
           <Route
             exact
             path="/product/:itemID"
             render={ ({ match, location }) => (
-              <ProductDetails
+              <TelaDetalhes
                 match={ match }
                 location={ location }
               />

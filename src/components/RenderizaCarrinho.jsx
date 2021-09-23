@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 class RenderizaCarrinho extends Component {
   // constructor() {
@@ -9,21 +9,22 @@ class RenderizaCarrinho extends Component {
   // }
 
   render() {
+    const { quantidade } = this.props;
     return (
       <div>
         <Link
           data-testid="shopping-cart-button"
           to="/shopping-cart"
         >
-          Carrinho de Compras
+          {`Carrinho de Compra: ${quantidade}`}
         </Link>
       </div>
     );
   }
 }
 
-export default RenderizaCarrinho;
+RenderizaCarrinho.propTypes = {
+  quantidade: PropTypes.number.isRequired,
+};
 
-// propTypes = {
-//   prop: PropTypes,
-// }
+export default RenderizaCarrinho;

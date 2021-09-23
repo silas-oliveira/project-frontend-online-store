@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { addToCart } from '../services/localStorageServices';
 
 class RenderizaProdutos extends React.Component {
   render() {
-    const { produtos } = this.props;
+    const { produtos, handleAddToCart } = this.props;
     return (
       <aside>
         { produtos.map((item) => (
@@ -25,8 +24,9 @@ class RenderizaProdutos extends React.Component {
             </Link>
             <button
               type="button"
+              name={ item.id }
               data-testid="product-add-to-cart"
-              onClick={ () => addToCart(item) }
+              onClick={ handleAddToCart }
             >
               Adicionar ao Carrinho
             </button>
@@ -39,5 +39,6 @@ class RenderizaProdutos extends React.Component {
 
 RenderizaProdutos.propTypes = {
   produtos: PropTypes.arrayOf(PropTypes.object).isRequired,
+  handleAddToCart: PropTypes.func.isRequired,
 };
 export default RenderizaProdutos;
