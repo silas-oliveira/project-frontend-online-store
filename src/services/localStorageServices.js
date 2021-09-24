@@ -10,12 +10,12 @@ export function addToCart(obj) {
 
 export function subToCart(obj) {
   const contentLocalStorage = localStorage.getItem(SHOPPING_CART_KEY);
-  console.log(contentLocalStorage);
   const myArrOfObj = contentLocalStorage ? JSON.parse(contentLocalStorage) : [];
-  const UpdArr = myArrOfObj
-    .splice(myArrOfObj.indexOf((content) => content.id === obj.id), 1);
-  console.log(UpdArr);
-  localStorage.setItem(SHOPPING_CART_KEY, JSON.stringify(UpdArr));
+  const firstIndexMatch = myArrOfObj.map((content) => content.id).lastIndexOf(obj.id);
+  if (firstIndexMatch >= 0) {
+    myArrOfObj.splice(firstIndexMatch, 1);
+  }
+  localStorage.setItem(SHOPPING_CART_KEY, JSON.stringify(myArrOfObj));
 }
 // export function subFromCart(obj) {
 //   const contentLocalStorage = localStorage.getItem(SHOPPING_CART_KEY);

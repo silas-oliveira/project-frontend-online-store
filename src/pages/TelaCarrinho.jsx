@@ -29,7 +29,6 @@ class TelaCarrinho extends React.Component {
   handleSubToCart(item) {
     subToCart(item);
     const carrinho = getFromCart();
-    console.log(carrinho);
     this.setState({
       contentCart: carrinho,
     });
