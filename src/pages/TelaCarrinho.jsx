@@ -1,14 +1,16 @@
 import React from 'react';
 import EmptyCart from '../components/EmptyCart';
-import { getFromCart } from '../services/localStorageServices';
 import NotEmptyCart from '../components/NotEmptyCart';
+import { addToCart, getFromCart, subToCart } from '../services/localStorageServices';
 
 class TelaCarrinho extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = { contentCart: [] };
     this.saveState = this.saveState.bind(this);
     this.formatedContentCart = this.formatedContentCart.bind(this);
+    this.handleAddToCart = this.handleAddToCart.bind(this);
+    this.handleSubToCart = this.handleSubToCart.bind(this);
   }
 
   componentDidMount() {
@@ -16,8 +18,20 @@ class TelaCarrinho extends React.Component {
     this.saveState(contentCart);
   }
 
-  saveState(contentCart) {
-    this.setState({ contentCart });
+  handleAddToCart(item) {
+    addToCart(item);
+    const carrinho = getFromCart();
+    this.setState({
+      contentCart: carrinho,
+    });
+  }
+
+  handleSubToCart(item) {
+    subToCart(item);
+    const carrinho = getFromCart();
+    this.setState({
+      contentCart: carrinho,
+    });
   }
 
   formatedContentCart() {
@@ -35,6 +49,10 @@ class TelaCarrinho extends React.Component {
     }, []);
   }
 
+  saveState(contentCart) {
+    this.setState({ contentCart });
+  }
+
   render() {
     const { contentCart } = this.state;
 
@@ -42,7 +60,14 @@ class TelaCarrinho extends React.Component {
       <section>
         {
           (contentCart.length === 0)
-            ? <EmptyCart /> : <NotEmptyCart cart={ this.formatedContentCart() } />
+            ? <EmptyCart />
+            : (
+              <NotEmptyCart
+                cart={ this.formatedContentCart() }
+                handleAddToCart={ this.handleAddToCart }
+                handleSubToCart={ this.handleSubToCart }
+              />
+            )
         }
       </section>
     );
